@@ -1,8 +1,0 @@
-C:\Projects\Others\etlbox\ETLBox\bin\Debug\netstandard2.0\img\logo_bw.png
-C:\Projects\Others\etlbox\ETLBox\bin\Debug\netstandard2.0\ETLBox.deps.json
-C:\Projects\Others\etlbox\ETLBox\bin\Debug\netstandard2.0\ETLBox.dll
-C:\Projects\Others\etlbox\ETLBox\bin\Debug\netstandard2.0\ETLBox.pdb
-C:\Projects\Others\etlbox\ETLBox\obj\Debug\netstandard2.0\ETLBox.AssemblyInfoInputs.cache
-C:\Projects\Others\etlbox\ETLBox\obj\Debug\netstandard2.0\ETLBox.AssemblyInfo.cs
-C:\Projects\Others\etlbox\ETLBox\obj\Debug\netstandard2.0\ETLBox.dll
-C:\Projects\Others\etlbox\ETLBox\obj\Debug\netstandard2.0\ETLBox.pdb
