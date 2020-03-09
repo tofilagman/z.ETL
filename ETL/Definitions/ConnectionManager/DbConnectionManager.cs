@@ -13,7 +13,7 @@ namespace z.ETL.ConnectionManager
 
         public string ConnectionString { get; set; }
 
-        internal Connection DbConnection { get; set; }
+        public Connection DbConnection { get; set; }
         public ConnectionState? State => DbConnection?.State; 
         public   ConnectionManagerType Type { get; private set; }
 

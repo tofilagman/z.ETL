@@ -14,24 +14,24 @@ namespace z.ETL.ConnectionManager
     /// </summary>
     /// <see cref="OdbcConnectionManager"/>
     /// <see cref="AccessOdbcConnectionManager"/>
-    internal class BulkInsertSql<T> where T : DbParameter, new()
+    public class BulkInsertSql<T> where T : DbParameter, new()
     {
-        internal bool IsAccessDatabase => ConnectionType == ConnectionManagerType.Access;
-        internal bool UseParameterQuery { get; set; } = true;
-        internal bool UseNamedParameters { get; set; }
-        internal List<T> Parameters { get; set; }
+        public bool IsAccessDatabase => ConnectionType == ConnectionManagerType.Access;
+        public bool UseParameterQuery { get; set; } = true;
+        public bool UseNamedParameters { get; set; }
+        public List<T> Parameters { get; set; }
         StringBuilder QueryText { get; set; }
         List<string> SourceColumnNames { get; set; }
         List<string> DestColumnNames { get; set; }
-        internal string AccessDummyTableName { get; set; }
-        internal ConnectionManagerType ConnectionType { get; set; }
-        internal string QB => ConnectionManagerSpecifics.GetBeginQuotation(ConnectionType);
-        internal string QE => ConnectionManagerSpecifics.GetEndQuotation(ConnectionType);
+        public string AccessDummyTableName { get; set; }
+        public ConnectionManagerType ConnectionType { get; set; }
+        public string QB => ConnectionManagerSpecifics.GetBeginQuotation(ConnectionType);
+        public string QE => ConnectionManagerSpecifics.GetEndQuotation(ConnectionType);
         public ObjectNameDescriptor TN => new ObjectNameDescriptor(TableName, ConnectionType);
-        internal string TableName { get; set; }
+        public string TableName { get; set; }
         private int ParameterNameCount { get; set; }
 
-        internal string CreateBulkInsertStatement(ITableData data, string tableName)
+        public string CreateBulkInsertStatement(ITableData data, string tableName)
         {
             InitObjects();
             TableName = tableName;
