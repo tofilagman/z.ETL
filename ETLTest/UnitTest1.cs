@@ -31,6 +31,7 @@ namespace ETLTest
             dest.Wait();
         }
 
+        [TestMethod]
         public void TestControlFlow()
         {
             var conn = new MsSqlConnectionManager("Server=10.37.128.2;Database=ETLBox_ControlFlow;Uid=etlbox;Pwd=etlboxpassword;");
