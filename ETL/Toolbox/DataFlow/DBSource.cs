@@ -70,6 +70,9 @@ namespace z.ETL.DataFlow
         bool HasTableName => !String.IsNullOrWhiteSpace(TableName);
         bool HasSql => !String.IsNullOrWhiteSpace(Sql);
         DBTypeInfo TypeInfo { get; set; }
+
+        public IList<QueryParameter> Parameter { get; private set; }
+
         string SourceDescription
         {
             get
@@ -86,6 +89,7 @@ namespace z.ETL.DataFlow
         public DbSource()
         {
             TypeInfo = new DBTypeInfo(typeof(TOutput));
+            Parameter = new List<QueryParameter>();
         }
 
         public DbSource(string tableName) : this()
@@ -129,7 +133,7 @@ namespace z.ETL.DataFlow
 
         SqlTask CreateSqlTask(string sql)
         {
-            var sqlT = new SqlTask(this, sql)
+            var sqlT = new SqlTask(this, sql, Parameter)
             {
                 DisableLogging = true,
             };

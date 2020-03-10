@@ -23,12 +23,16 @@ namespace z.ETL.ControlFlow
 
         public SqlTask(string name) : base(name) { }
 
-        internal SqlTask(ITask callingTask, string sql) : base(callingTask, sql) { }
+        public SqlTask(ITask callingTask, string sql) : base(callingTask, sql) { }
 
         public SqlTask(string name, string sql) : base(name, sql) { }
 
         public SqlTask(string name, string sql, IEnumerable<QueryParameter> parameter) : base(name, sql)
         {
+            Parameter = parameter;
+        }
+
+        public SqlTask(ITask callingTask, string sql, IEnumerable<QueryParameter> parameter) : base(callingTask, sql) {
             Parameter = parameter;
         }
 
