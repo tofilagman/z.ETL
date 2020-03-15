@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System;
 
 namespace z.ETL
 {
@@ -23,7 +24,9 @@ namespace z.ETL
             }
         }
 
+        public int MaxProgressCount { get; set; }
         public int ProgressCount { get; set; }
+        public Action<int> OnProgress { get; set; }
 
         protected bool HasLoggingThresholdRows => LoggingThresholdRows != null && LoggingThresholdRows > 0;
         protected int ThresholdCount { get; set; } = 1;
@@ -53,9 +56,15 @@ namespace z.ETL
             }
         }
 
-        protected void LogProgress()
+        public void LogProgress()
         {
             ProgressCount += 1;
+            if (OnProgress != null)
+            {
+                var hh = (Convert.ToDouble(ProgressCount) / Convert.ToDouble(MaxProgressCount)) * 100.0;
+                OnProgress?.Invoke(Convert.ToInt32(hh));
+            }
+
             if (!DisableLogging && HasLoggingThresholdRows && (ProgressCount % LoggingThresholdRows == 0))
                 Logger?.LogInformation(TaskName + $" processed {ProgressCount} records.", TaskType, "LOG", TaskHash, ControlFlow.ControlFlow.STAGE, ControlFlow.ControlFlow.CurrentLoadProcess?.Id);
         }

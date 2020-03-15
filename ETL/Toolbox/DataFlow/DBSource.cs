@@ -110,6 +110,7 @@ namespace z.ETL.DataFlow
         public override void Execute()
         {
             NLogStart();
+            GetTotalCount();
             ReadAll();
             Buffer.Complete();
             NLogFinish();
@@ -123,6 +124,13 @@ namespace z.ETL.DataFlow
             CleanupSqlTask(sqlT);
         }
 
+        private void GetTotalCount()
+        {
+            var sqlT = new SqlTask(this, $"Select Count(1) from {TableName}") { DisableLogging = true };
+            var gount = sqlT.ExecuteScalar();
+            MaxProgressCount = gount == null ? 0 : Convert.ToInt32(gount);
+        }
+         
         private void LoadTableDefinition()
         {
             if (HasTableName)

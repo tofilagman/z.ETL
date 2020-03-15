@@ -12,12 +12,12 @@
     <RepositoryUrl></RepositoryUrl>
     <PackageTags>etl elt dataflow controlflow data integration</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <PackageIconUrl></PackageIconUrl> 
     <Authors></Authors>
     <Company></Company>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <FileVersion>1.0.0.0</FileVersion>
+    <AssemblyVersion>1.0.1.0</AssemblyVersion>
+    <FileVersion>1.0.1.0</FileVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RootNamespace>z.ETL</RootNamespace>
   </PropertyGroup>
