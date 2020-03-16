@@ -32,7 +32,8 @@ namespace z.ETL.ControlFlow
             Parameter = parameter;
         }
 
-        public SqlTask(ITask callingTask, string sql, IEnumerable<QueryParameter> parameter) : base(callingTask, sql) {
+        public SqlTask(ITask callingTask, string sql, IEnumerable<QueryParameter> parameter) : base(callingTask, sql)
+        {
             Parameter = parameter;
         }
 
@@ -79,15 +80,12 @@ namespace z.ETL.ControlFlow
         public static void ExecuteReaderSingleLine(string name, string sql, IEnumerable<QueryParameter> parameterList, params Action<object>[] actions)
             => new SqlTask(name, sql, parameterList, actions) { Limit = 1 }.ExecuteReader();
         public static void ExecuteReaderSingleLine(IConnectionManager connectionManager, string name, string sql, IEnumerable<QueryParameter> parameterList, params Action<object>[] actions)
-    => new SqlTask(name, sql, parameterList, actions) { ConnectionManager = connectionManager,  Limit = 1 }.ExecuteReader();
+    => new SqlTask(name, sql, parameterList, actions) { ConnectionManager = connectionManager, Limit = 1 }.ExecuteReader();
         public static void ExecuteReader(string name, string sql, IEnumerable<QueryParameter> parameterList, params Action<object>[] actions) => new SqlTask(name, sql, parameterList, actions).ExecuteReader();
         public static void ExecuteReader(IConnectionManager connectionManager, string name, string sql, IEnumerable<QueryParameter> parameterList, params Action<object>[] actions) => new SqlTask(name, sql, parameterList, actions) { ConnectionManager = connectionManager }.ExecuteReader();
-        public static void ExecuteReader(string name, string sql, IEnumerable<QueryParameter> parameterList, Action beforeRowReadAction, Action afterRowReadAction, params Action<object>[] actions) =>
-            new SqlTask(name, sql, parameterList, beforeRowReadAction, afterRowReadAction, actions).ExecuteReader();
-        public static void BulkInsert(string name, ITableData data, string tableName) =>
-            new SqlTask(name).BulkInsert(data, tableName);
-        public static void BulkInsert(IConnectionManager connectionManager, string name, ITableData data, string tableName) =>
-     new SqlTask(name) { ConnectionManager = connectionManager }.BulkInsert(data, tableName);
+        public static void ExecuteReader(string name, string sql, IEnumerable<QueryParameter> parameterList, Action beforeRowReadAction, Action afterRowReadAction, params Action<object>[] actions) => new SqlTask(name, sql, parameterList, beforeRowReadAction, afterRowReadAction, actions).ExecuteReader();
+        public static void BulkInsert(string name, ITableData data, string tableName) => new SqlTask(name).BulkInsert(data, tableName);
+        public static void BulkInsert(IConnectionManager connectionManager, string name, ITableData data, string tableName) => new SqlTask(name) { ConnectionManager = connectionManager }.BulkInsert(data, tableName);
 
     }
 

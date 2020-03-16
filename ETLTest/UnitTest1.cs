@@ -16,13 +16,13 @@ namespace ETLTest
             var sourceCon = new MySqlConnectionManager("Server=10.37.128.2;Database=ETLBox_ControlFlow;Uid=etlbox;Pwd=etlboxpassword;");
             var destCon = new MsSqlConnectionManager("Data Source=.;Integrated Security=SSPI;Initial Catalog=ETLBox;");
 
-            DbSource<MySimpleRow> source = new DbSource<MySimpleRow>(sourceCon, "SourceTable");
+            DbSource<MySimpleRow> source = new DbSource<MySimpleRow>(sourceCon, "SourceTable", null);
             RowTransformation<MySimpleRow, MySimpleRow> trans = new RowTransformation<MySimpleRow, MySimpleRow>(
                 myRow => {
                     myRow.Value += 1;
                     return myRow;
                 });
-            DbDestination<MySimpleRow> dest = new DbDestination<MySimpleRow>(destCon, "DestinationTable");
+            DbDestination<MySimpleRow> dest = new DbDestination<MySimpleRow>(destCon, "DestinationTable", null);
 
             source.LinkTo(trans);
             trans.LinkTo(dest);

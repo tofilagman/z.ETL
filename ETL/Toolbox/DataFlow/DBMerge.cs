@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
+using Microsoft.Extensions.Logging;
 
 namespace z.ETL.DataFlow
 {
@@ -68,13 +69,14 @@ namespace z.ETL.DataFlow
         bool WasTruncationExecuted { get; set; }
         DBMergeTypeInfo TypeInfo { get; set; }
 
-        public DbMerge(string tableName)
+        public DbMerge(string tableName, ILogger logger)
         {
             TableName = tableName;
+            Logger = logger;
             Init();
         }
 
-        public DbMerge(IConnectionManager connectionManager, string tableName) : this(tableName)
+        public DbMerge(IConnectionManager connectionManager, string tableName, ILogger logger) : this(tableName, logger)
         {
             ConnectionManager = connectionManager;
         }
@@ -82,8 +84,8 @@ namespace z.ETL.DataFlow
         private void Init()
         {
             TypeInfo = new DBMergeTypeInfo(typeof(TInput));
-            DestinationTableAsSource = new DbSource<TInput>(ConnectionManager, TableName);
-            DestinationTable = new DbDestination<TInput>(ConnectionManager, TableName);
+            DestinationTableAsSource = new DbSource<TInput>(ConnectionManager, TableName, Logger);
+            DestinationTable = new DbDestination<TInput>(ConnectionManager, TableName, Logger);
             InitInternalFlow();
             InitOutputFlow();
         }

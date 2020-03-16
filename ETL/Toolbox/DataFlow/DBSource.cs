@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
 using TSQL;
 using TSQL.Statements;
+using Microsoft.Extensions.Logging;
 
 namespace z.ETL.DataFlow
 {
@@ -86,23 +87,24 @@ namespace z.ETL.DataFlow
             }
         }
 
-        public DbSource()
+        public DbSource(ILogger logger)
         {
             TypeInfo = new DBTypeInfo(typeof(TOutput));
             Parameter = new List<QueryParameter>();
+            Logger = logger;
         }
 
-        public DbSource(string tableName) : this()
+        public DbSource(string tableName, ILogger logger) : this(logger)
         {
             TableName = tableName;
         }
 
-        public DbSource(IConnectionManager connectionManager) : this()
+        public DbSource(IConnectionManager connectionManager, ILogger logger) : this(logger)
         {
             ConnectionManager = connectionManager;
         }
 
-        public DbSource(IConnectionManager connectionManager, string tableName) : this(tableName)
+        public DbSource(IConnectionManager connectionManager, string tableName, ILogger logger) : this(tableName, logger)
         {
             ConnectionManager = connectionManager;
         }
@@ -275,9 +277,9 @@ namespace z.ETL.DataFlow
     /// </example>
     public class DbSource : DbSource<ExpandoObject>
     {
-        public DbSource() : base() { }
-        public DbSource(string tableName) : base(tableName) { }
-        public DbSource(IConnectionManager connectionManager) : base(connectionManager) { }
-        public DbSource(IConnectionManager connectionManager, string tableName) : base(connectionManager, tableName) { }
+        public DbSource(ILogger logger) : base(logger) { }
+        public DbSource(string tableName, ILogger logger) : base(tableName, logger) { }
+        public DbSource(IConnectionManager connectionManager, ILogger logger) : base(connectionManager, logger) { }
+        public DbSource(IConnectionManager connectionManager, string tableName, ILogger logger) : base(connectionManager, tableName, logger) { }
     }
 }

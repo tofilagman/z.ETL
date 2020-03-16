@@ -15,7 +15,7 @@ namespace z.ETL
             set => _taskType = value;
         }
         public virtual string TaskName { get; set; } = "N/A";
-        public ILogger Logger { get; set; }
+        public ILogger Logger { get; protected set; }
 
         public virtual IConnectionManager ConnectionManager { get; set; }
 

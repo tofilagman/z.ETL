@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Reflection;
+using Microsoft.Extensions.Logging;
 
 namespace z.ETL.DataFlow
 {
@@ -33,32 +34,34 @@ namespace z.ETL.DataFlow
         internal const int DEFAULT_BATCH_SIZE = 1000;
 
 
-        public DbDestination()
+        public DbDestination(ILogger logger)
         {
             BatchSize = DEFAULT_BATCH_SIZE;
+            Logger = logger;
         }
 
-        public DbDestination(int batchSize)
+        public DbDestination(int batchSize, ILogger logger)
         {
             BatchSize = batchSize;
+            Logger = logger;
         }
 
-        public DbDestination(string tableName) : this()
+        public DbDestination(string tableName, ILogger logger) : this(logger)
         {
             TableName = tableName;
         }
 
-        public DbDestination(IConnectionManager connectionManager, string tableName) : this(tableName)
+        public DbDestination(IConnectionManager connectionManager, string tableName, ILogger logger) : this(tableName, logger)
         {
             ConnectionManager = connectionManager;
         }
 
-        public DbDestination(string tableName, int batchSize) : this(batchSize)
+        public DbDestination(string tableName, int batchSize, ILogger logger) : this(batchSize, logger)
         {
             TableName = tableName;
         }
 
-        public DbDestination(IConnectionManager connectionManager, string tableName, int batchSize) : this(tableName, batchSize)
+        public DbDestination(IConnectionManager connectionManager, string tableName, int batchSize, ILogger logger) : this(tableName, batchSize, logger)
         {
             ConnectionManager = connectionManager;
         }
@@ -169,17 +172,17 @@ namespace z.ETL.DataFlow
     /// </example>
     public class DbDestination : DbDestination<ExpandoObject>
     {
-        public DbDestination() : base() { }
+        public DbDestination(ILogger logger) : base(logger) { }
 
-        public DbDestination(int batchSize) : base(batchSize) { }
+        public DbDestination(int batchSize, ILogger logger) : base(batchSize, logger) { }
 
-        public DbDestination(string tableName) : base(tableName) { }
+        public DbDestination(string tableName, ILogger logger) : base(tableName, logger) { }
 
-        public DbDestination(IConnectionManager connectionManager, string tableName) : base(connectionManager, tableName) { }
+        public DbDestination(IConnectionManager connectionManager, string tableName, ILogger logger) : base(connectionManager, tableName, logger) { }
 
-        public DbDestination(string tableName, int batchSize) : base(tableName, batchSize) { }
+        public DbDestination(string tableName, int batchSize, ILogger logger) : base(tableName, batchSize, logger) { }
 
-        public DbDestination(IConnectionManager connectionManager, string tableName, int batchSize) : base(connectionManager, tableName, batchSize) { }
+        public DbDestination(IConnectionManager connectionManager, string tableName, int batchSize, ILogger logger) : base(connectionManager, tableName, batchSize, logger) { }
     }
 
 }
